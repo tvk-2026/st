@@ -1,0 +1,4 @@
+TakesScreenshot screenshot = (TakesScreenshot) driver;
+File sourceFile = screenshot.getScreenshotAs(OutputType.FILE);
+String screenshotPath = "google_screenshot.png";
+Files.copy(sourceFile.toPath(), Paths.get(screenshotPath));
