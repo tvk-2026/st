@@ -1,0 +1,127 @@
+////////////////////////////////////////////////////Basic Code FORMAT
+
+
+package runner;
+
+import org.openqa.selenium.By;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+import utils.Base;
+import utils.LoggerHandler;
+import utils.Reporter;
+import utils.Screenshot;
+import utils.WebDriverHelper;
+
+public class FirstTest extends Base{
+    
+    WebDriverHelper webDriverHelper;
+    ExtentReports reports;
+    ExtentTest test;
+    @BeforeTest
+    public void launch(){
+        openBrowser();
+        webDriverHelper=new WebDriverHelper(driver);
+        reports=Reporter.generateExtentReport("DemoReport");
+    }
+
+    @Test
+    public void test1(){
+
+        test=reports.createTest("Test1");
+        Screenshot.captureScreenShot("coursera_screenshot");
+        Reporter.attachScreenshotToReport("coursera_screenshot", test, "coursera_screenshot");
+        LoggerHandler.info("click on login");
+        test.log(Status.PASS, "hover on explore");
+        
+        webDriverHelper.hoverOverElement(By.xpath("//span[text()='Explore']"));
+        
+    }
+
+    @Test
+    public void test2(){
+        test=reports.createTest("Test2");
+        driver.get("https://www.coursera.org/about/cookies-manage");
+        webDriverHelper.clickOnElement(By.xpath("//button[text()='Confirm My Choices']"));
+        webDriverHelper.clickOnElement(By.xpath("//a[text()='Log In']"));
+        webDriverHelper.javascriptScroll(By.xpath("//button[text()='Sign up']"));
+        webDriverHelper.clickOnElement(By.xpath("//button[text()='Sign up']"));
+        LoggerHandler.info("log found with line");
+    }
+    @AfterTest
+    public void close(){
+        driver.quit();
+        reports.flush();
+    }
+}
+
+
+////////////////////////////////browser.properties
+executiontype = remote
+browsername = chrome
+gridurl = http://localhost:4444
+url = https://www.itchotels.com/
+
+
+
+
+//////////////////////////////pom.xml
+
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.42</version>
+</dependency>
+
+
+
+/////////////////////////basic testcase code
+
+package runner;
+
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+import utils.Base;
+import utils.LoggerHandler;
+import utils.Reporter;
+import utils.Screenshot;
+import utils.WebDriverHelper;
+
+public class FirstTest extends Base{
+    WebDriverHelper helper;
+    ExtentReports reports;
+    ExtentTest test;
+
+    @Test
+    public void launchBrowser(){
+        openBrowser();
+        helper=new WebDriverHelper(driver);
+        reports= Reporter.generateExtentReport("Demoreport");
+        test=reports.createTest("Test1");
+        Screenshot.captureScreenShot("contact_screenshot");
+        Reporter.attachScreenshotToReport("contact_screenshot", test, "contact_screenshot");
+        test.pass("click on about us");
+
+        test.log(Status.PASS, "click on about us");
+        LoggerHandler.info("click on ginger");
+        LoggerHandler.info("click on gingerw");
+        LoggerHandler.info("click on gingere");
+        LoggerHandler.info("click on ginger3");
+        LoggerHandler.info("click on gingerr");
+        LoggerHandler.info("click on gingerwr");
+        LoggerHandler.info("click on gingeer");
+        LoggerHandler.info("click on gingerew");
+        LoggerHandler.info("click on gingerewew");
+        reports.flush();
+    }
+}
